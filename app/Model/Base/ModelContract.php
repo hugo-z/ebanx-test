@@ -4,6 +4,7 @@ namespace Ebanx\Model\Base;
 
 interface ModelContract
 {
+
     public function find(string $id);
 
     public function all();

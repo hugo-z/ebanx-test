@@ -15,7 +15,6 @@ final class Router
 
     private string $namespace = "Ebanx\\Controller\\";
 
-    #[Pure]
     public function namespace(string $namespace): Router
     {
         $this->namespace = $namespace;
@@ -128,20 +127,5 @@ final class Router
         return $method
             && in_array(strtoupper($method), self::RESTAPI_METHODS)
             && $_SERVER['REQUEST_METHOD'] === strtoupper($method);
-    }
-
-    /**
-     * Set the given namespace
-     *
-     * @param  string  $namespace
-     * @return Router
-     */
-    private function wrapNamespace(string $namespace): Router
-    {
-        if ($namespace) {
-            $this->namespace = $namespace;
-        }
-
-        return $this;
     }
 }

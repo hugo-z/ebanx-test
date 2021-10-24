@@ -91,7 +91,6 @@ class Account extends Service implements AccountContract
                     ]);
 
                     return ['destination' => $created->getAttributes()];
-//                    return compact('destination');
                 }
 
                 // Log the error
