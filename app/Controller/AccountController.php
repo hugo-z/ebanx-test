@@ -8,7 +8,6 @@ use JetBrains\PhpStorm\Pure;
 
 class AccountController extends Controller
 {
-//    protected Account $repository;
     private AccountService $service;
 
     public function __construct()
@@ -62,10 +61,5 @@ class AccountController extends Controller
     {
         $this->service->reset();
         Response::json('OK', 200);
-    }
-
-    public function getSessionAccounts()
-    {
-        Response::json($_SESSION['accounts'], 200);
     }
 }

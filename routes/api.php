@@ -13,9 +13,6 @@ try {
             '/getAllAccounts' => ['get', 'AccountController@getAllAccounts'],
             '/event' => ['post', 'AccountController@eventAction'],
             '/reset' => ['post', 'AccountController@reset'],
-
-
-            '/sessionAccounts' => ['get', 'AccountController@getSessionAccounts']
         ]
     )->namespace($namespace);
 } catch (Exception $e) {
