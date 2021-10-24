@@ -4,7 +4,6 @@ namespace Ebanx\Controller;
 
 use Ebanx\Libs\Response;
 use Ebanx\Services\Account\Account as AccountService;
-use JetBrains\PhpStorm\Pure;
 
 class AccountController extends Controller
 {

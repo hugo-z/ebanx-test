@@ -31,17 +31,17 @@ class ModelFile extends Model implements ModelContract
      */
     public function find(string $id): ModelFile|null
     {
-        $accountFiles = $this->getAllAccountFiles();
+        $accountFiles = $this->allFiles();
 
         if (empty($accountFiles)) {
             throw new \Exception('Model Not Found', 404);
         }
 
-        $accountIds = array_map(function ($fileName) {
+        $fileNames = array_map(function ($fileName) {
             return explode('.', $fileName)[0];
         }, $accountFiles);
 
-        if (in_array($id, $accountIds)) {
+        if (in_array($id, $fileNames)) {
             $accountInfo = unserialize(file_get_contents($this->tablePath . DIRECTORY_SEPARATOR . $id . '.txt'));
 
             return $this->setAttributes($accountInfo);
@@ -52,16 +52,16 @@ class ModelFile extends Model implements ModelContract
 
     public function all(): array
     {
-        $accountFiles = $this->getAllAccountFiles();
+        $files = $this->allFiles();
 
-        if (!empty($accountFiles)) {
-            $accounts = array_map(function ($file) {
+        if (!empty($files)) {
+            $fileContents = array_map(function ($file) {
                 return unserialize(file_get_contents($this->tablePath . DIRECTORY_SEPARATOR . $file));
-            }, $accountFiles);
+            }, $files);
 
-            return array_map(function ($account) {
-                return new self($account);
-            }, $accounts);
+            return array_map(function ($content) {
+                return new self($content);
+            }, $fileContents);
         }
 
         return [];
@@ -118,18 +118,18 @@ class ModelFile extends Model implements ModelContract
 
     public function reset(array $attributes)
     {
-        $accountFiles = $this->getAllAccountFiles();
+        $files = $this->allFiles();
         $initialFile = $this->tablePath . DIRECTORY_SEPARATOR . $attributes['id'] . '.txt';
 
-        foreach ($accountFiles as $accountFile) {
-            unlink($this->tablePath . DIRECTORY_SEPARATOR . $accountFile);
+        foreach ($files as $file) {
+            unlink($this->tablePath . DIRECTORY_SEPARATOR . $file);
         }
 
         fopen($initialFile, 'w+');
         file_put_contents($initialFile, serialize($attributes));
     }
 
-    private function getAllAccountFiles(): array
+    private function allFiles(): array
     {
         return array_values(array_filter(scandir($this->tablePath), function ($file) {
             return '.' !== $file && '..' !== $file;

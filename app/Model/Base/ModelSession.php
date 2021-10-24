@@ -10,8 +10,7 @@ class ModelSession extends Model implements ModelContract
     public function __construct(array $attributes = [])
     {
         @session_start();
-
-        $this->attributes = $attributes;
+        parent::__construct($attributes);
     }
 
     /**
