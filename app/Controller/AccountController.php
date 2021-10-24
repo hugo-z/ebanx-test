@@ -4,6 +4,7 @@ namespace Ebanx\Controller;
 
 use Ebanx\Libs\Response;
 use Ebanx\Services\Account\Account as AccountService;
+use JetBrains\PhpStorm\NoReturn;
 
 class AccountController extends Controller
 {
@@ -29,6 +30,7 @@ class AccountController extends Controller
         }
     }
 
+    #[NoReturn]
     public function getAllAccounts()
     {
         Response::json($this->service->getAllAccounts(), 200);
@@ -56,6 +58,7 @@ class AccountController extends Controller
         }
     }
 
+    #[NoReturn]
     public function reset()
     {
         $this->service->reset();
